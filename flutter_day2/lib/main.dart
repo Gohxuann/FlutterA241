@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late PageController _pageController;
+  int totalPage = 3;
 
   void _onscroll() {}
 
@@ -33,27 +34,38 @@ class _HomePageState extends State<HomePage> {
         controller: _pageController,
         children: [
           makePage(
+              page: 1,
               image: 'assets/images/labubu1.jpg',
-              Title: 'LABUBU',
+              title: 'LABUBU',
               description:
-                  'Labubu is a kind-hearted, curious, and optimistic creature with pointed ears, sharp teeth, and a squarish face. Labubu is inspired by the forest spirits of Scandinavia and is part of a universe of characters modeled after elves, fairies, and monsters.'),
+                  'Labubu is a kind-hearted, curious, and optimistic creature with pointed ears, sharp teeth, and a squarish face. Labubu is inspired by the forest spirits of Scandinavia and is part of a universe of characters modeled after elves, fairies, and monsters.',
+              totalPage: totalPage),
           makePage(
+              page: 2,
               image: 'assets/images/labubu2.jpg',
-              Title: 'Zimomo',
+              title: 'Zimomo',
               description:
-                  'Zimomo is fuzzy, long-eared, and sports sharp teeth that they show off when they smile.'),
+                  'Zimomo is fuzzy, long-eared, and sports sharp teeth that they show off when they smile.',
+              totalPage: totalPage),
           makePage(
+              page: 3,
               image: 'assets/images/labubu3.jpg',
-              Title: 'History',
+              title: 'History',
               description:
-                  'In 2015, Kasing Lung created a fairy world in his three Nordic Fairy Tale picture books, where live The Monsters, which are both good and evil, including Zimomo, Tycoco, Spooky and Pato.'),
+                  'In 2015, Kasing Lung created a fairy world in his three Nordic Fairy Tale picture books, where live The Monsters, which are both good and evil, including Zimomo, Tycoco, Spooky and Pato.',
+              totalPage: totalPage),
         ],
       ),
     );
   }
 }
 
-Widget makePage({image, Title, description}) {
+Widget makePage(
+    {required String image,
+    required String title,
+    required String description,
+    required int page,
+    required int totalPage}) {
   return Container(
     decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover)),
@@ -76,7 +88,7 @@ Widget makePage({image, Title, description}) {
               const SizedBox(
                 height: 40,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment:
                     MainAxisAlignment.end, //set position of text to right end
                 crossAxisAlignment: CrossAxisAlignment
@@ -84,13 +96,13 @@ Widget makePage({image, Title, description}) {
                 textBaseline: TextBaseline
                     .alphabetic, //set position of text to bottom (must used wif crossAxisAlignment)
                 children: <Widget>[
-                  Text("1",
-                      style: TextStyle(
+                  Text(page.toString(),
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 30,
                           fontWeight: FontWeight.bold)),
-                  Text("/3",
-                      style: TextStyle(
+                  Text("/$totalPage",
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold)),
@@ -103,14 +115,14 @@ Widget makePage({image, Title, description}) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    Title,
+                    title,
                     style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 40,
+                        fontSize: 60,
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   Row(
                     children: [
@@ -160,7 +172,7 @@ Widget makePage({image, Title, description}) {
                       ),
                       const Text(
                         "(4.5k)",
-                        style: TextStyle(color: Colors.white38, fontSize: 12),
+                        style: TextStyle(color: Colors.white54, fontSize: 12),
                       ),
                     ],
                   ),
@@ -183,7 +195,10 @@ Widget makePage({image, Title, description}) {
                   const Text(
                     'READ MORE',
                     style: TextStyle(color: Colors.white),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
                 ],
               ))
             ]),
