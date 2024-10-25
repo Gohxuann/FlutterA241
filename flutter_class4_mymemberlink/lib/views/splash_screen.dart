@@ -18,6 +18,7 @@ class _SplashScreen extends State<SplashScreen> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
