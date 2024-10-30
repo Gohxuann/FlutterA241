@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_class4_mymemberlink/myconfig.dart';
+import 'package:flutter_class4_mymemberlink/views/main_screen.dart';
+import 'package:flutter_class4_mymemberlink/views/register_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -98,7 +101,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               GestureDetector(
                 child: const Text("Forgot Password? "),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (content) => const RegisterScreen()));
+                },
+                child: const Text("Create new account?"),
+              ),
             ],
           ),
         ),
@@ -115,26 +130,27 @@ class _LoginScreenState extends State<LoginScreen> {
       ));
       return;
     }
-    http.post(Uri.parse("http://192.168.0.159/memberlink/api/login_user.php"),
+    http.post(
+        Uri.parse("${MyConfig.servername1}/memberlink/api/login_user.php"),
         body: {"email": email, "password": password}).then((response) {
-      print(response.statusCode);
-      print(response.body);
+      // print(response.statusCode);
+      // print(response.body);to check if it is working or not
       if (response.statusCode == 200) {
-        // var data = jsonDecode(response.body);
-        // if (data['status'] == "success") {
-        //   // User user = User.fromJson(data['data']);
-        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        //     content: Text("Login Success"),
-        //     backgroundColor: Colors.green,
-        //   ));
-        //   // Navigator.push(context,
-        //   //     MaterialPageRoute(builder: (content) =>  MainPage(userdata:user)));
-        // } else {
-        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        //     content: Text("Login Failed"),
-        //     backgroundColor: Colors.red,
-        //   ));
-        // }
+        var data = jsonDecode(response.body);
+        if (data['status'] == "success") {
+          // User user = User.fromJson(data['data']);
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Login Success"),
+            backgroundColor: Colors.green,
+          ));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (content) => const MainScreen()));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Login Failed"),
+            backgroundColor: Colors.red,
+          ));
+        }
       }
     });
   }
