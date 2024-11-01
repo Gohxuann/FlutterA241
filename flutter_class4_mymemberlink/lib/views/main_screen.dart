@@ -38,6 +38,7 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
               onTap: () {},
               title: const Text("Newsletter"),
+              leading: const Icon(Icons.newspaper),
             ),
             ListTile(
               onTap: () {},
